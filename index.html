@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>Paula P. Ame | Portfolio</title>
+<meta name="description" content="Portfolio of Paula P. Ame - BSIT Student at NEUST">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== Base & Variables ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+:root {
+  --bg: #050505;
+  --card-bg: #111111;
+  --border: #222222;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --accent: #3b82f6; /* Electric Blue */
+  --accent-glow: rgba(59, 130, 246, 0.15);
+  --gradient: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+}
+
+html { scroll-behavior: smooth; }
+body { 
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif; 
+  background-color: var(--bg); 
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--text-main); 
+  line-height: 1.6; 
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ===== Top Bar ===== */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: calc(1rem + var(--sat)) 1.5rem 1rem;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(5, 5, 5, 0.8);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.logo { font-family: 'Fira Code', monospace; font-weight: 700; font-size: 1.1rem; color: var(--accent); letter-spacing: -0.05em; }
+.status { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.status-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 10px #22c55e; animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+/* ===== Bento Grid Layout ===== */
+main {
+  flex: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: calc(80px + var(--sat)) 1.5rem calc(4rem + var(--sab));
+  width: 100%;
+}
+
+.bento {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(180px, auto);
+  gap: 1.5rem;
+}
+
+/* Card Styling */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 1.8rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Subtle Gradient Border on Hover */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  padding: 1px;
+  background: linear-gradient(to bottom right, rgba(255,255,255,0.1), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.card:hover {
+  border-color: rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 30px var(--accent-glow);
+  transform: translateY(-2px);
+}
+
+/* Card Headers (Terminal Style) */
+.card-header {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.card-header span.prompt { color: var(--accent); font-weight: bold; }
+
+/* ===== Grid Areas ===== */
+.hero { grid-column: 1 / 3; grid-row: 1 / 3; display: flex; flex-direction: row; gap: 2rem; align-items: center; padding: 2.5rem; }
+.about { grid-column: 3 / 4; grid-row: 1 / 2; }
+.edu { grid-column: 3 / 4; grid-row: 2 / 3; }
+.projects { grid-column: 1 / 3; grid-row: 3 / 4; }
+.skills { grid-column: 3 / 4; grid-row: 3 / 4; }
+.contact { grid-column: 1 / 4; grid-row: 4 / 5; display: flex; flex-direction: row; justify-content: space-between; align-items: center; padding: 2rem; }
+
+/* ===== Hero Specifics ===== */
+.hero-img-container {
+  flex: 0 0 40%;
+  aspect-ratio: 1/1;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #222;
+  position: relative;
+}
+.hero-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+.hero-text h1 {
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  margin-bottom: 0.5rem;
+}
+.hero-text h1 span {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero-text p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* ===== About Specifics ===== */
+.about p { font-size: 1rem; color: var(--text-muted); line-height: 1.7; }
+.about strong { color: var(--text-main); }
+
+/* ===== Education Specifics ===== */
+.edu h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 0.2rem; color: var(--text-main); }
+.edu p { font-size: 0.95rem; color: var(--accent); font-weight: 600; }
+
+/* ===== Projects Specifics ===== */
+.project-list { display: flex; flex-direction: column; gap: 1rem; }
+.p-item { 
+  display: flex; justify-content: space-between; align-items: center; 
+  padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 12px; 
+  border: 1px solid transparent; transition: all 0.2s; 
+}
+.p-item:hover { background: rgba(255,255,255,0.05); border-color: var(--border); transform: translateX(5px); }
+.p-item-info h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.1rem; }
+.p-item-info p { font-size: 0.85rem; color: var(--text-muted); }
+.p-item-tag { font-family: 'Fira Code', monospace; font-size: 0.75rem; color: var(--accent); background: var(--accent-glow); padding: 0.3rem 0.6rem; border-radius: 6px; }
+
+/* ===== Skills Specifics ===== */
+.skill-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.skill-tag { 
+  font-size: 0.85rem; font-weight: 600; padding: 0.5rem 1rem; 
+  background: rgba(255,255,255,0.05); border: 1px solid var(--border); 
+  border-radius: 20px; transition: all 0.2s;
+}
+.skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ===== Contact Specifics ===== */
+.contact-text h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 0.2rem; }
+.contact-text p { color: var(--text-muted); }
+.contact-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+.contact-btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.8rem 1.5rem; border-radius: 12px;
+  background: var(--gradient); color: #fff;
+  font-weight: 700; font-size: 0.95rem;
+  transition: all 0.2s; border: none; cursor: pointer;
+}
+.contact-btn.secondary {
+  background: transparent; border: 1px solid var(--border); color: var(--text-main);
+}
+.contact-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px var(--accent-glow); }
+.contact-btn.secondary:hover { border-color: var(--text-main); background: rgba(255,255,255,0.05); }
+
+/* ===== Responsive Design ===== */
+@media (max-width: 900px) {
+  .bento { grid-template-columns: 1fr 1fr; }
+  .hero { grid-column: 1 / 3; grid-row: 1 / 2; flex-direction: row; padding: 1.5rem; }
+  .about { grid-column: 1 / 2; grid-row: 2 / 3; }
+  .edu { grid-column: 2 / 3; grid-row: 2 / 3; }
+  .projects { grid-column: 1 / 3; grid-row: 3 / 4; }
+  .skills { grid-column: 1 / 3; grid-row: 4 / 5; }
+  .contact { grid-column: 1 / 3; grid-row: 5 / 6; flex-direction: column; text-align: center; gap: 1.5rem; }
+}
+
+@media (max-width: 600px) {
+  .bento { grid-template-columns: 1fr; }
+  .hero { flex-direction: column; text-align: center; padding: 2rem; gap: 1.5rem; }
+  .hero-img-container { width: 100%; max-width: 250px; flex: none; }
+  .about, .edu, .projects, .skills, .contact { grid-column: 1 / 2; grid-row: auto; }
+  .contact-links { flex-direction: column; width: 100%; }
+  .contact-btn { width: 100%; justify-content: center; }
+  .p-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<header>
+  <div class="logo">PAULA.OS</div>
+  <div class="status">
+    <div class="status-dot"></div>
+    Available for work
+  </div>
+</header>
+
+<!-- ============ MAIN BENTO GRID ============ -->
+<main>
+  <div class="bento">
+
+    <!-- Hero Card -->
+    <div class="card hero">
+      <div class="hero-img-container">
+        <img src="profile.jpg" alt="Paula P. Ame" onerror="this.style.display='none'">
+      </div>
+      <div class="hero-text">
+        <h1>Hi, I'm <br><span>Paula P. Ame</span></h1>
+        <p>BSIT Student @ NEUST</p>
+      </div>
+    </div>
+
+    <!-- About Card -->
+    <div class="card about">
+      <div class="card-header"><span class="prompt">~</span> about_me.md</div>
+      <p>I am a driven BSIT student at <strong>Nueva Ecija University of Science and Technology</strong>. I specialize in creating clean, functional web experiences and solving complex problems through code.</p>
+    </div>
+
+    <!-- Education Card -->
+    <div class="card edu">
+      <div class="card-header"><span class="prompt">~</span> education.cfg</div>
+      <h3>NEUST</h3>
+      <p>BS in Information Technology</p>
+    </div>
+
+    <!-- Projects Card -->
+    <div class="card projects">
+      <div class="card-header"><span class="prompt">~</span> featured_work.sh</div>
+      <div class="project-list">
+        
+        <div class="p-item">
+          <div class="p-item-info">
+            <h4>E-Commerce UI Concept</h4>
+            <p>Modern responsive frontend design</p>
+          </div>
+          <span class="p-item-tag">Web</span>
+        </div>
+
+        <div class="p-item">
+          <div class="p-item-info">
+            <h4>Student Management System</h4>
+            <p>Java desktop application</p>
+          </div>
+          <span class="p-item-tag">Java</span>
+        </div>
+
+        <div class="p-item">
+          <div class="p-item-info">
+            <h4>Personal Portfolio</h4>
+            <p>Clean minimal UI/UX design</p>
+          </div>
+          <span class="p-item-tag">UI/UX</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Skills Card -->
+    <div class="card skills">
+      <div class="card-header"><span class="prompt">~</span> tech_stack.json</div>
+      <div class="skill-tags">
+        <span class="skill-tag">HTML5</span>
+        <span class="skill-tag">CSS3</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">Java</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">UI/UX</span>
+      </div>
+    </div>
+
+    <!-- Contact Card -->
+    <div class="card contact">
+      <div class="contact-text">
+        <h2>Let's Connect</h2>
+        <p>Have a project in mind or just want to say hi?</p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:paulaame0@gmail.com" class="contact-btn">Email Me</a>
+        <a href="tel:09704857168" class="contact-btn secondary">Call</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+</body>
+</html>
